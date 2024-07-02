@@ -1,4 +1,4 @@
-**Bevy 0.14** introduces an entirely new group of primitives: Extrusions!
+**Bevy 0.14** introduces an entirely new group of primitives: extrusions!
 
 An extrusion is a 2D primitive (the base shape) that is *extruded* into a third dimension by some depth. The resulting shape is a prism (or in the special case of the circle, a cylinder).
 
@@ -12,12 +12,12 @@ let my_extrusion = Extrusion::new(my_ellipse, 1.);
 
 All extrusions are extruded along the Z-axis. This guarantees that an extrusion of depth 0 and the corresponding base shape are identical, just as one would expect.
 
-## Measuring and Sampling
+#### Measuring and Sampling
 
-Since all extrusions with base shapes that implement [`Measured2d`](https://dev-docs.bevyengine.org/bevy/index.html) implement [`Measured3d`](https://dev-docs.bevyengine.org/bevy/index.html), you can easily get the surface area or volume of an extrusion.
+Since all extrusions with base shapes that implement [`Measured2d`](https://docs.rs/bevy/0.14/bevy/index.html) implement [`Measured3d`](https://docs.rs/bevy/0.14/bevy/index.html), you can easily get the surface area or volume of an extrusion.
 If you have an extrusion of a custom 2D primitive, you can simply implement `Measured2d` for your primitive and `Measured3d` will be implemented automatically for the extrusion.
 
-Likewise, you can sample the boundary and interior of any extrusion if the base shape of the extrusion implements [`ShapeSample<Output = Vec2>`](https://dev-docs.bevyengine.org/bevy/index.html) and `Measured2d`. 
+Likewise, you can sample the boundary and interior of any extrusion if the base shape of the extrusion implements [`ShapeSample<Output = Vec2>`](https://docs.rs/bevy/0.14/bevy/index.html) and `Measured2d`. 
 
 ```rust
 // Create a 2D capsule with radius 1 and length 2, extruded to a depth of 3
@@ -40,9 +40,9 @@ let interior_sample = extrusion.sample_interior(&mut rng);
 let boundary_sample = extrusion.sample_boundary(&mut rng);
 ```
 
-## Bounding
+#### Bounding
 
-You can also get bounding spheres and Axis Aligned Bounding Boxes (AABBs) for extrusions. If you have a custom 2D primitive that implements `Bounded2d`, you can simply implement [`BoundedExtrusion`](https://dev-docs.bevyengine.org/bevy/index.html) for your primitive. The default implementation will give optimal results but may be slower than a solution fitted to your primitive. 
+You can also get bounding spheres and Axis Aligned Bounding Boxes (AABBs) for extrusions. If you have a custom 2D primitive that implements `Bounded2d`, you can simply implement [`BoundedExtrusion`](https://docs.rs/bevy/0.14/bevy/index.html) for your primitive. The default implementation will give optimal results but may be slower than a solution fitted to your primitive. 
 
 ```rust
 struct Heart {
@@ -60,13 +60,13 @@ impl BoundedExtrusion for Heart {
 }
 ```
 
-## Meshing
+#### Meshing
 
 Extrusions do not exist in the world of maths only though. They can also be meshed and displayed on the screen!
 
 ![selected rendered extrusions](selected_extrusions.png)
 
-And again, adding meshing support for your own primitives is made easy by bevy! You simply need to implement meshing for your 2D primitive and then implement [`Extrudable`](https://dev-docs.bevyengine.org/bevy/index.html) for your 2D primitive's `MeshBuilder`. 
+And again, adding meshing support for your own primitives is made easy by bevy! You simply need to implement meshing for your 2D primitive and then implement [`Extrudable`](https://docs.rs/bevy/0.14/bevy/index.html) for your 2D primitive's `MeshBuilder`. 
 
 When implementing `Extrudable`, you have to provide information about whether segments of the perimeter of the base shape are to be shaded smooth or flat, and what vertices belong to each of these perimeter segments.
 
@@ -121,4 +121,4 @@ impl Extrudable for HeartMeshBuilder {
 
 The `Extrudable` trait allows you to easily implement meshing for extrusions of custom primitives. Of course, you could also implement meshing manually for your extrusion.
 
-If you want to see a full implementation of this, you can check out the [custom primitives example](https://github.com/bevyengine/bevy/blob/main/examples/math/custom_primitives.rs).
+If you want to see a full implementation of this, you can check out the [custom primitives example](https://github.com/bevyengine/bevy/tree/v0.14.0/examples/math/custom_primitives.rs).

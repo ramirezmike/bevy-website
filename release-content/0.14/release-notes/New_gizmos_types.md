@@ -1,6 +1,15 @@
-Gizmos in Bevy allow to easily draw arbitrary shapes to help debugging or authoring content, but also to visualize specific properties of your scene, such has the AABB of your meshes.
+Gizmos in Bevy allow developers to easily draw arbitrary shapes to help debugging or authoring content, but also to visualize specific properties of your scene, such has the AABB of your meshes.
 
 In 0.14, several new gizmos have been added to [`bevy::gizmos`]:
+
+### Rounded box gizmos
+
+Rounded boxes and cubes are great for visualizing regions and colliders.
+
+If you set the `corner_radius` or `edge_radius` to a positive value, the corners will be rounded outwards. However, if you provide a negative value, the corners will flip and curve inwards.
+
+![rounded gizmos cuboids](gizmos_rounded_cuboid.png)
+![rounded gizmos rectangles](gizmos_rounded_rect.png)
 
 #### Grid Gizmos
 
